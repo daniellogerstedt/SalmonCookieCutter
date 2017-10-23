@@ -1,11 +1,11 @@
 'use strict';
 
-// 1st and Pike Store Object
-var firstPikeStore = {
+var storeLocations = [{
+  name: 'First and Pike Store',
   minCust: 23,
   maxCust: 65,
   avgCookSale: 6.3,
-  hoursOfBusiness: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'],
+  hoursOfBusiness: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'],
   salesPerHour: [],
   salesTotal: 0,
   actualCust: function() {
@@ -25,14 +25,12 @@ var firstPikeStore = {
     this.salesTotal = runningTotal;
     return;
   }
-};
-
-// SeaTac Airport Store Object
-var seatacAirportStore = {
+}, {
+  name: 'SeaTac Airport Store',
   minCust: 3,
   maxCust: 24,
   avgCookSale: 1.2,
-  hoursOfBusiness: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'],
+  hoursOfBusiness: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'],
   salesPerHour: [],
   salesTotal: 0,
   actualCust: function() {
@@ -52,14 +50,12 @@ var seatacAirportStore = {
     this.salesTotal = runningTotal;
     return;
   }
-};
-
-// Seattle Center Store Object
-var seattleCenterStore = {
+}, {
+  name: 'Seattle Center Store',
   minCust: 11,
   maxCust: 38,
   avgCookSale: 3.7,
-  hoursOfBusiness: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'],
+  hoursOfBusiness: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'],
   salesPerHour: [],
   salesTotal: 0,
   actualCust: function() {
@@ -79,14 +75,12 @@ var seattleCenterStore = {
     this.salesTotal = runningTotal;
     return;
   }
-};
-
-// Capitol Hill Store Object
-var capitolHillStore = {
+}, {
+  name: 'Capitol Hill Store',
   minCust: 20,
   maxCust: 38,
   avgCookSale: 2.3,
-  hoursOfBusiness: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'],
+  hoursOfBusiness: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'],
   salesPerHour: [],
   salesTotal: 0,
   actualCust: function() {
@@ -106,14 +100,12 @@ var capitolHillStore = {
     this.salesTotal = runningTotal;
     return;
   }
-};
-
-// Alki Store Object
-var alkiBeachStore = {
+}, {
+  name: 'Alki Beach Store',
   minCust: 2,
   maxCust: 16,
   avgCookSale: 4.6,
-  hoursOfBusiness: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'],
+  hoursOfBusiness: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'],
   salesPerHour: [],
   salesTotal: 0,
   actualCust: function() {
@@ -132,5 +124,21 @@ var alkiBeachStore = {
     this.salesPerHour = salesAmounts;
     this.salesTotal = runningTotal;
     return;
+  }
+}];
+
+var buildSales = function(salesArray) {
+  for (var i = 0; i < salesArray.length; i++) {
+    document.body.main.appendChild('<h2>' + salesArray[i].name + '</h2>');
+    var salesAmount = [];
+    var salesAmountTotal;
+    salesArray.actualCust();
+    var storeSales = document.createElement('ul');
+    for (var j = 0; j < salesArray.hoursOfBusiness.length; j++) {
+      salesAmount.push('<li>' + salesArray.hoursOfBusiness[j] + ': ' + salesArray.salesPerHour[j] + '</li>');
+    }
+    salesAmountTotal = '<li>Total: ' + salesArray.salesTotal + '</li>';
+    salesAmount.push(salesAmountTotal);
+    storeSales.innerHTML(storeSales.join('') + salesAmountTotal);
   }
 };
