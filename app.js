@@ -148,6 +148,7 @@ var buildSales = function(salesArray) {
     console.log('store sales:', storeSales);
 
     storeSection.innerHTML = storeName + storeSales;
+    console.log(storeSection);
     document.body.main.appendChild(storeSection);
   }
 };
