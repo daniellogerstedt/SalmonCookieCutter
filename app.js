@@ -2,6 +2,7 @@
 
 var storeLocations = [{
   name: 'First and Pike Store',
+  storeId: 'S1',
   minCust: 23,
   maxCust: 65,
   avgCookSale: 6.3,
@@ -18,8 +19,8 @@ var storeLocations = [{
       // creates array information for hourly sales rounding up to ensure there are never too few salmon cookies.
       salesAmounts.push(Math.ceil(randomSale * this.avgCookSale));
       runningTotal += (Math.ceil(randomSale * this.avgCookSale));
-      console.log('hourly sales:', salesAmounts[i]);
-      console.log('total sales:', runningTotal);
+      // console.log('hourly sales:', salesAmounts[i]);
+      // console.log('total sales:', runningTotal);
     }
     this.salesPerHour = salesAmounts;
     this.salesTotal = runningTotal;
@@ -27,6 +28,7 @@ var storeLocations = [{
   }
 }, {
   name: 'SeaTac Airport Store',
+  storeId: 'S2',
   minCust: 3,
   maxCust: 24,
   avgCookSale: 1.2,
@@ -43,8 +45,8 @@ var storeLocations = [{
       // creates array information for hourly sales rounding up to ensure there are never too few salmon cookies.
       salesAmounts.push(Math.ceil(randomSale * this.avgCookSale));
       runningTotal += (Math.ceil(randomSale * this.avgCookSale));
-      console.log('hourly sales:', salesAmounts[i]);
-      console.log('total sales:', runningTotal);
+      // console.log('hourly sales:', salesAmounts[i]);
+      // console.log('total sales:', runningTotal);
     }
     this.salesPerHour = salesAmounts;
     this.salesTotal = runningTotal;
@@ -52,6 +54,7 @@ var storeLocations = [{
   }
 }, {
   name: 'Seattle Center Store',
+  storeId: 'S3',
   minCust: 11,
   maxCust: 38,
   avgCookSale: 3.7,
@@ -68,8 +71,8 @@ var storeLocations = [{
       // creates array information for hourly sales rounding up to ensure there are never too few salmon cookies.
       salesAmounts.push(Math.ceil(randomSale * this.avgCookSale));
       runningTotal += (Math.ceil(randomSale * this.avgCookSale));
-      console.log('hourly sales:', salesAmounts[i]);
-      console.log('total sales:', runningTotal);
+      // console.log('hourly sales:', salesAmounts[i]);
+      // console.log('total sales:', runningTotal);
     }
     this.salesPerHour = salesAmounts;
     this.salesTotal = runningTotal;
@@ -77,6 +80,7 @@ var storeLocations = [{
   }
 }, {
   name: 'Capitol Hill Store',
+  storeId: 'S4',
   minCust: 20,
   maxCust: 38,
   avgCookSale: 2.3,
@@ -93,8 +97,8 @@ var storeLocations = [{
       // creates array information for hourly sales rounding up to ensure there are never too few salmon cookies.
       salesAmounts.push(Math.ceil(randomSale * this.avgCookSale));
       runningTotal += (Math.ceil(randomSale * this.avgCookSale));
-      console.log('hourly sales:', salesAmounts[i]);
-      console.log('total sales:', runningTotal);
+      // console.log('hourly sales:', salesAmounts[i]);
+      // console.log('total sales:', runningTotal);
     }
     this.salesPerHour = salesAmounts;
     this.salesTotal = runningTotal;
@@ -102,6 +106,7 @@ var storeLocations = [{
   }
 }, {
   name: 'Alki Beach Store',
+  storeId: 'S5',
   minCust: 2,
   maxCust: 16,
   avgCookSale: 4.6,
@@ -118,8 +123,8 @@ var storeLocations = [{
       // creates array information for hourly sales rounding up to ensure there are never too few salmon cookies.
       salesAmounts.push(Math.ceil(randomSale * this.avgCookSale));
       runningTotal += (Math.ceil(randomSale * this.avgCookSale));
-      console.log('hourly sales:', salesAmounts[i]);
-      console.log('total sales:', runningTotal);
+      // console.log('hourly sales:', salesAmounts[i]);
+      // console.log('total sales:', runningTotal);
     }
     this.salesPerHour = salesAmounts;
     this.salesTotal = runningTotal;
@@ -129,16 +134,27 @@ var storeLocations = [{
 
 var buildSales = function(salesArray) {
   for (var i = 0; i < salesArray.length; i++) {
-    document.body.main.appendChild('<h2>' + salesArray[i].name + '</h2>');
+    var storeName = '<h2>' + salesArray[i].name + '</h2>';
+    console.log(storeName);
+    var sectionId = document.getElementById(salesArray[i].storeId)[0];
+    console.log(salesArray[i].storeId);
+    console.log(sectionId);
     var salesAmount = [];
     var salesAmountTotal;
-    salesArray.actualCust();
+    salesArray[i].actualCust();
     var storeSales = document.createElement('ul');
-    for (var j = 0; j < salesArray.hoursOfBusiness.length; j++) {
-      salesAmount.push('<li>' + salesArray.hoursOfBusiness[j] + ': ' + salesArray.salesPerHour[j] + '</li>');
+    for (var j = 0; j < salesArray[i].hoursOfBusiness.length; j++) {
+      salesAmount.push('<li>' + salesArray[i].hoursOfBusiness[j] + ': ' + salesArray[i].salesPerHour[j] + '</li>');
     }
-    salesAmountTotal = '<li>Total: ' + salesArray.salesTotal + '</li>';
+    // console.log('sales per hour:', salesAmount);
+    // console.log('store sales:', storeSales);
+    salesAmountTotal = '<li>Total: ' + salesArray[i].salesTotal + '</li>';
     salesAmount.push(salesAmountTotal);
-    storeSales.innerHTML(storeSales.join('') + salesAmountTotal);
+    // console.log('total sales:', salesAmountTotal);
+    storeSales.innerHTML = salesAmount.join('');
+    console.log('store sales:', storeSales);
+    sectionId.appendChild(storeSales);
   }
 };
+
+buildSales(storeLocations);
