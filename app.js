@@ -2,7 +2,6 @@
 
 var storeLocations = [{
   name: 'First and Pike Store',
-  storeId: 'S1',
   minCust: 23,
   maxCust: 65,
   avgCookSale: 6.3,
@@ -28,7 +27,6 @@ var storeLocations = [{
   }
 }, {
   name: 'SeaTac Airport Store',
-  storeId: 'S2',
   minCust: 3,
   maxCust: 24,
   avgCookSale: 1.2,
@@ -54,7 +52,6 @@ var storeLocations = [{
   }
 }, {
   name: 'Seattle Center Store',
-  storeId: 'S3',
   minCust: 11,
   maxCust: 38,
   avgCookSale: 3.7,
@@ -80,7 +77,6 @@ var storeLocations = [{
   }
 }, {
   name: 'Capitol Hill Store',
-  storeId: 'S4',
   minCust: 20,
   maxCust: 38,
   avgCookSale: 2.3,
@@ -106,7 +102,6 @@ var storeLocations = [{
   }
 }, {
   name: 'Alki Beach Store',
-  storeId: 'S5',
   minCust: 2,
   maxCust: 16,
   avgCookSale: 4.6,
@@ -133,27 +128,27 @@ var storeLocations = [{
 }];
 
 var buildSales = function(salesArray) {
-  for (var i = 0; i < salesArray.length; i++) {
-    var storeName = '<h2>' + salesArray[i].name + '</h2>';
-    console.log(storeName);
-    var sectionId = document.getElementById(salesArray[i].storeId)[0];
-    console.log(salesArray[i].storeId);
-    console.log(sectionId);
+  for (var k = 0; k < salesArray.length; k++) {
+    var storeSection = document.createElement('section');
+    var storeName = '<h2>' + salesArray[k].name + '</h2>';
     var salesAmount = [];
     var salesAmountTotal;
-    salesArray[i].actualCust();
+    salesArray[k].actualCust();
     var storeSales = document.createElement('ul');
-    for (var j = 0; j < salesArray[i].hoursOfBusiness.length; j++) {
-      salesAmount.push('<li>' + salesArray[i].hoursOfBusiness[j] + ': ' + salesArray[i].salesPerHour[j] + '</li>');
+
+    for (var l = 0; l < salesArray[k].hoursOfBusiness.length; l++) {
+      salesAmount.push('<li>' + salesArray[k].hoursOfBusiness[l] + ': ' + salesArray[k].salesPerHour[l] + '</li>');
     }
     // console.log('sales per hour:', salesAmount);
     // console.log('store sales:', storeSales);
-    salesAmountTotal = '<li>Total: ' + salesArray[i].salesTotal + '</li>';
+    salesAmountTotal = '<li>Total: ' + salesArray[k].salesTotal + '</li>';
     salesAmount.push(salesAmountTotal);
     // console.log('total sales:', salesAmountTotal);
     storeSales.innerHTML = salesAmount.join('');
     console.log('store sales:', storeSales);
-    sectionId.appendChild(storeSales);
+
+    storeSection.innerHTML = storeName + storeSales;
+    document.body.main.appendChild(storeSection);
   }
 };
 
