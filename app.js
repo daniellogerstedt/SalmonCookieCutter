@@ -129,12 +129,11 @@ var storeLocations = [{
 
 var buildSales = function(salesArray) {
   for (var k = 0; k < salesArray.length; k++) {
-    var storeSection = document.createElement('section');
-    var storeName = '<h2>' + salesArray[k].name + '</h2>';
-    var salesAmount = [];
+    // var storeName = '<h2>' + salesArray[k].name + '</h2>';
+    var salesAmount = ['<h2>' + salesArray[k].name + '</h2>', '<ul>'];
     var salesAmountTotal;
     salesArray[k].actualCust();
-    var storeSales = document.createElement('ul');
+    var storeSales = document.createElement('section');
 
     for (var l = 0; l < salesArray[k].hoursOfBusiness.length; l++) {
       salesAmount.push('<li>' + salesArray[k].hoursOfBusiness[l] + ': ' + salesArray[k].salesPerHour[l] + '</li>');
@@ -143,13 +142,11 @@ var buildSales = function(salesArray) {
     // console.log('store sales:', storeSales);
     salesAmountTotal = '<li>Total: ' + salesArray[k].salesTotal + '</li>';
     salesAmount.push(salesAmountTotal);
+    salesAmount.push('</ul>');
     // console.log('total sales:', salesAmountTotal);
     storeSales.innerHTML = salesAmount.join('');
     console.log('store sales:', storeSales);
-
-    storeSection.innerHTML = storeName + storeSales;
-    console.log(storeSection);
-    document.body.main.appendChild(storeSection);
+    document.getElementById('salesContent').appendChild(storeSales);
   }
 };
 
