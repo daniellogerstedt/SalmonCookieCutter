@@ -53,7 +53,7 @@ var buildSales = function(salesArray) {
     if (k === 0) {
       var headerRow = document.createElement('tr');
       headerRow.innerHTML = tableHeader.join('');
-      document.getElementById('salesTableHead').appendChild(headerRow);
+      document.getElementById('sales-table-head').appendChild(headerRow);
     }
     console.log(tableHeader);
     // console.log('sales per hour:', salesAmount);
@@ -63,7 +63,7 @@ var buildSales = function(salesArray) {
     // console.log('total sales:', salesAmountTotal);
     storeSales.innerHTML = salesAmount.join('');
     console.log('store sales:', storeSales);
-    document.getElementById('salesTableBody').appendChild(storeSales);
+    document.getElementById('sales-table-body').appendChild(storeSales);
     console.log(typeof storeSales);
   }
 };
