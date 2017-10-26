@@ -46,12 +46,12 @@ Store.prototype.actualCust = function() {
 var buildSales = function(salesArray) {
   document.getElementById('sales-table-head').innerHTML = '';
   document.getElementById('sales-table-body').innerHTML = '';
-  var hourlyTotal = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  var hourlyTotal = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   for (var k = 0; k < salesArray.length; k++) {
     var storeSales = document.createElement('tr');
-    var salesAmount = ['<td>' + salesArray[k].name + '</td>'];
+    var salesAmount = ['<th>' + salesArray[k].name + '</th>'];
     var tableHeader = ['<th>Store</th>'];
-    var tableFooter = ['<tf>Hourly Totals:</tf>'];
+    var tableFooter = ['<th>Hourly Totals:</th>'];
     var salesAmountTotal;
     if (salesArray[k].salesPerHour.length === 0) {
       salesArray[k].actualCust();
@@ -70,7 +70,7 @@ var buildSales = function(salesArray) {
     tableHeader.push('<th>Daily Totals</th>');
     console.log('footer array', tableFooter);
     // tableFooter.push()
-    if (k === 0) {
+    if (k === 0) { //Appends header to table
       var headerRow = document.createElement('tr');
       headerRow.innerHTML = tableHeader.join('');
       document.getElementById('sales-table-head').appendChild(headerRow);
@@ -85,6 +85,12 @@ var buildSales = function(salesArray) {
     // console.log('store sales:', storeSales);
     document.getElementById('sales-table-body').appendChild(storeSales);
     // console.log(typeof storeSales);
+    if (k === salesArray.length - 1) { //Appends footer to table after rest of data
+      var footerRow = document.createElement('tr');
+      tableFooter.push('<td></td>');
+      footerRow.innerHTML = tableFooter.join('');
+      document.getElementById('sales-table-body').appendChild(footerRow);
+    }
   }
 };
 
