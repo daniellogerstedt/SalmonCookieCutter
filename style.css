@@ -4,6 +4,16 @@ body {
   font-family: helvetica;
 }
 
+header {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+main {
+  width: 960px;
+  margin: 0 auto;
+}
+
 fieldset {
   padding: 20px;
 }
@@ -48,11 +58,11 @@ table {
 thead {
   background: gray;
   color: white;
-  padding: 20px
+  padding: 5px
   border: solid 1px #000;
 }
 
 td, th {
-  padding: 20px;
+  padding: 5px;
   border: solid 1px #000;
 }

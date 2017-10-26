@@ -1,6 +1,7 @@
 'use strict';
 
 var form = document.getElementById('input_form');
+var storeLocations = [];
 
 function Store(name, min, max, avg){
   this.name = name;
@@ -19,11 +20,8 @@ function formData(event) {
   var minimum = parseInt(event.target.store_minimum.value);
   var maximum = parseInt(event.target.store_maximum.value);
   var average = parseInt(event.target.store_average.value + '.' + event.target.store_average_dec.value);
-
   storeLocations.push(new Store(location, minimum, maximum, average));
-
   buildSales(storeLocations);
-
   form.reset();
 }
 
@@ -44,7 +42,51 @@ Store.prototype.actualCust = function() {
   this.salesTotal = runningTotal;
   return;
 };
-var storeLocations = [];
+
+var buildSales = function(salesArray) {
+  document.getElementById('sales-table-head').innerHTML = '';
+  document.getElementById('sales-table-body').innerHTML = '';
+  var hourlyTotal = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  for (var k = 0; k < salesArray.length; k++) {
+    var storeSales = document.createElement('tr');
+    var salesAmount = ['<td>' + salesArray[k].name + '</td>'];
+    var tableHeader = ['<th>Store</th>'];
+    var tableFooter = ['<tf>Hourly Totals:</tf>'];
+    var salesAmountTotal;
+    if (salesArray[k].salesPerHour.length === 0) {
+      salesArray[k].actualCust();
+    };
+    for (var l = 0; l < salesArray[k].hoursOfBusiness.length; l++) {
+      salesAmount.push('<td>' + salesArray[k].salesPerHour[l] + '</td>');
+      hourlyTotal[l] += salesArray[k].salesPerHour[l];
+      console.log('hourly total', hourlyTotal);
+      if (k === 0) {
+        tableHeader.push('<th>' + salesArray[k].hoursOfBusiness[l] + '</th>');
+      }
+      if (k === salesArray.length - 1) {
+        tableFooter.push('<td>' + hourlyTotal[l] + '</td>');
+      }
+    }
+    tableHeader.push('<th>Daily Totals</th>');
+    console.log('footer array', tableFooter);
+    // tableFooter.push()
+    if (k === 0) {
+      var headerRow = document.createElement('tr');
+      headerRow.innerHTML = tableHeader.join('');
+      document.getElementById('sales-table-head').appendChild(headerRow);
+    }
+    // console.log('table header', tableHeader);
+    // console.log('sales per hour:', salesAmount);
+    // console.log('store sales:', storeSales);
+    salesAmountTotal = '<td>Total: ' + salesArray[k].salesTotal + '</td>';
+    salesAmount.push(salesAmountTotal);
+    // console.log('total sales:', salesAmountTotal);
+    storeSales.innerHTML = salesAmount.join('');
+    // console.log('store sales:', storeSales);
+    document.getElementById('sales-table-body').appendChild(storeSales);
+    // console.log(typeof storeSales);
+  }
+};
 
 storeLocations.push(new Store('First and Pike Store', 23, 65, 6.3));
 storeLocations.push(new Store('SeaTac Airport Store', 3, 24, 1.2));
@@ -52,42 +94,6 @@ storeLocations.push(new Store('Seattle Center Store', 11, 38, 3.7));
 storeLocations.push(new Store('Capitol Hill Store', 20, 38, 2.3));
 storeLocations.push(new Store('Alki Beach Store', 2, 16, 4.6));
 
-
-var buildSales = function(salesArray) {
-  document.getElementById('sales-table-head').innerHTML = '';
-  document.getElementById('sales-table-body').innerHTML = '';
-  for (var k = 0; k < salesArray.length; k++) {
-    var storeSales = document.createElement('tr');
-    var salesAmount = ['<td>' + salesArray[k].name + '</td>'];
-    var tableHeader = ['<th>Store</th>'];
-    var salesAmountTotal;
-    if (salesArray[k].salesPerHour.length === 0) {
-      salesArray[k].actualCust();
-    };
-    for (var l = 0; l < salesArray[k].hoursOfBusiness.length; l++) {
-      salesAmount.push('<td>' + salesArray[k].salesPerHour[l] + '</td>');
-      if (k === 0) {
-        tableHeader.push('<th>' + salesArray[k].hoursOfBusiness[l] + '</th>');
-      }
-    }
-    tableHeader.push('<th>Daily Totals</th>');
-    if (k === 0) {
-      var headerRow = document.createElement('tr');
-      headerRow.innerHTML = tableHeader.join('');
-      document.getElementById('sales-table-head').appendChild(headerRow);
-    }
-    console.log(tableHeader);
-    // console.log('sales per hour:', salesAmount);
-    // console.log('store sales:', storeSales);
-    salesAmountTotal = '<td>Total: ' + salesArray[k].salesTotal + '</td>';
-    salesAmount.push(salesAmountTotal);
-    // console.log('total sales:', salesAmountTotal);
-    storeSales.innerHTML = salesAmount.join('');
-    console.log('store sales:', storeSales);
-    document.getElementById('sales-table-body').appendChild(storeSales);
-    console.log(typeof storeSales);
-  }
-};
-
 buildSales(storeLocations);
+
 form.addEventListener('submit', formData);
