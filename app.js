@@ -1,5 +1,7 @@
 'use strict';
 
+var form = document.getElementById('input_form');
+
 function Store(name, min, max, avg){
   this.name = name;
   this.minCust = min;
@@ -9,6 +11,21 @@ function Store(name, min, max, avg){
   this.salesPerHour = [];
   this.salesTotal = 0;
 };
+
+function formData(event) {
+  event.preventDefault();
+
+  var location = event.target.store_location.value + ' Store';
+  var minimum = parseInt(event.target.store_minimum.value);
+  var maximum = parseInt(event.target.store_maximum.value);
+  var average = parseInt(event.target.store_average.value + '.' + event.target.store_average_dec.value);
+
+  storeLocations.push(new Store(location, minimum, maximum, average));
+
+  buildSales(storeLocations);
+
+  form.reset();
+}
 
 Store.prototype.actualCust = function() {
   var min = this.minCust;
@@ -37,12 +54,16 @@ storeLocations.push(new Store('Alki Beach Store', 2, 16, 4.6));
 
 
 var buildSales = function(salesArray) {
+  document.getElementById('sales-table-head').innerHTML = '';
+  document.getElementById('sales-table-body').innerHTML = '';
   for (var k = 0; k < salesArray.length; k++) {
     var storeSales = document.createElement('tr');
     var salesAmount = ['<td>' + salesArray[k].name + '</td>'];
     var tableHeader = ['<th>Store</th>'];
     var salesAmountTotal;
-    salesArray[k].actualCust();
+    if (salesArray[k].salesPerHour.length === 0) {
+      salesArray[k].actualCust();
+    };
     for (var l = 0; l < salesArray[k].hoursOfBusiness.length; l++) {
       salesAmount.push('<td>' + salesArray[k].salesPerHour[l] + '</td>');
       if (k === 0) {
@@ -69,3 +90,4 @@ var buildSales = function(salesArray) {
 };
 
 buildSales(storeLocations);
+form.addEventListener('submit', formData);
