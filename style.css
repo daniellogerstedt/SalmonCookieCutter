@@ -40,6 +40,16 @@ header h1 {
 
 /*Main Styles*/
 
+nav {
+text-align: center;
+font-style: italic;
+font-size: 16px;
+background: #906F60;
+width: 960px;
+margin: -10px auto;
+padding-top: 10px;
+}
+
 main {
   width: 960px;
   margin: 0 auto;
