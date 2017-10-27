@@ -56,6 +56,10 @@ main {
   background: #906F60;
 }
 
+main div {
+  text-align: center;
+}
+
 h2 {
   margin-top: 20px;
   font-size: 24px;
