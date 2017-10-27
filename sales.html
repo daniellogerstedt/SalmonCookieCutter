@@ -3,15 +3,46 @@
   <head>
     <meta charset="utf-8">
     <title>Sales Page</title>
-    <!-- <link rel="stylesheet" href="reset.css"> -->
+    <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <header>
       <h1>Hourly Cookie Sales:</h1>
     </header>
+    <nav>
+      <a href="index.html"><p>Home</p></a>
+    </nav>
     <main id="salesContent">
+      <form id="input_form">
+        <fieldset>
+          <label for="store_location">Store Location:</label>
+          <input type="text" name="store_location" min-length="6" required>
+        </fieldset>
+        <fieldset>
+          <label for="store_minimum">Minimum Customers:</label>
+          <input type="number" name="store_minimum" required>
+        </fieldset>
+        <fieldset>
+          <label for="store_maximum">Maximum Customers:</label>
+          <input type="number" name="store_maximum" required>
+        </fieldset>
+        <fieldset>
+          <label for="store_average">Average Cookies Per Sale:</label>
+          <input type="number" name="store_average" required>
+          <label for="store_average_dec">.</label>
+          <input type="number" name="store_average_dec" required>
+        </fieldset>
+        <button id="submit_btn" type="submit">Submit</button>
+      </form>
+      <table>
+        <thead id="sales-table-head">
 
+        </thead>
+        <tbody id="sales-table-body">
+
+        </tbody>
+      </table>
     </main>
     <script src="app.js"></script>
   </body>
