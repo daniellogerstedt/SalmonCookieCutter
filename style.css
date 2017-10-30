@@ -29,12 +29,12 @@ header h1 {
 }
 
 .header_salmon {
-  left: 20%;
+  left: 0;
   top: 0;
 }
 
 .header_chinook {
-  right: 20%;
+  right: 0;
   top: 0;
 }
 
